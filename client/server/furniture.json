@@ -1,0 +1,96 @@
+{
+  "furniture": [
+    {
+      "id": "1",
+      "name": "Тумба",
+      "url": "https://mebel-vigo.ru/image/mebel-dlya-vannoy/grani/grani-500/upload/thumb.3f830ac9bf7fdc6f678b5b9192ca380abfb846ce.png.rf.jpg",
+      "collection": "standart1",
+      "type": "Mirror1",
+      "size": ["200", "300", "500"],
+      "discont": false,
+      "price": 1000,
+      "bookmark": false
+    },
+    {
+      "id": "2",
+      "name": "Тумба",
+      "url": "./public/img/foto1.png",
+      "collection": "standart",
+      "type": "тумба",
+      "size": ["200", "300", "500"],
+      "discont": false,
+      "price": 1000,
+      "bookmark": false
+    },
+    {
+      "id": "3",
+      "name": "Тумба",
+      "url": "./public/img/foto1.png",
+      "collection": "standart",
+      "type": "зеркало",
+      "size": ["200", "300", "500"],
+      "discont": false,
+      "price": 1000,
+      "bookmark": false
+    },
+    {
+      "id": "4",
+      "name": "Тумба",
+      "url": "./public/img/foto1.png",
+      "collection": "standart",
+      "type": "тумба",
+      "size": "200",
+      "discont": false,
+      "price": 1000,
+      "bookmark": false
+    },
+    {
+      "id": "5",
+      "name": "Пенал",
+      "url": "./public/img/foto1.png",
+      "collection": "standart",
+      "type": "пенал",
+      "size": "200",
+      "discont": false,
+      "price": 1000,
+      "bookmark": false
+    },
+    {
+      "id": "6",
+      "name": "Пенал",
+      "url": "./public/img/foto1.png",
+      "collection": "standart",
+      "type": "пенал",
+      "size": "300",
+      "discont": false,
+      "price": 1000,
+      "bookmark": false
+    },
+    {
+      "id": "7",
+      "name": "Шкаф зеркальный",
+      "url": "./public/img/foto1.png",
+      "collection": "standart",
+      "type": "шкаф",
+      "size": "400",
+      "discont": false,
+      "price": 1000,
+      "bookmark": false
+    }
+  ],
+  "collections": {
+    "Standart": { "id": "standart1", "name": "Стандарт" },
+    "Nostandart": { "id": "nestandart1", "name": "Нестандарт" }
+  },
+  "types": {
+    "Mirror": { "id": "Mirror1", "name": "Зеркало" },
+    "PencelCase": { "id": "pencelCase1", "name": "Пенал" },
+    "Pedestal": { "id": "pedestal1", "name": "Тумба" }
+  },
+  "sizes": {
+    "200": { "id": "size200", "name": "Размер", "property": 200 },
+    "300": { "id": "size300", "name": "Размер", "property": 300 },
+    "400": { "id": "size400", "name": "Размер", "property": 400 },
+    "500": { "id": "size500", "name": "Размер", "property": 500 }
+  }
+}
