@@ -2,6 +2,8 @@ const { Schema, model } = require('mongoose')
 
 const schema = new Schema(
   {
+    vendor_code: { type: String, require: true },
+    name: { type: String },
     type: { type: Schema.Types.ObjectId, ref: 'Types' },
     image: { type: String },
     size: { type: Schema.Types.ObjectId, ref: 'Size' },
