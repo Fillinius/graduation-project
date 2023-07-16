@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import FurnitursList from '../components/page/furnutursList';
 import { useParams } from 'react-router-dom';
 import Furniture from '../components/ui/furniture';
+import EditFurniturePage from '../components/page/editFurniturePage';
 
 const Furniturs = () => {
   const params = useParams()
-  const { furnitureId } = params
+  const { furnitureId, edit } = params
   const URL_FURNITURE = 'http://localhost:3001/furniture/'
   const [furniturs, setFurniturs] = useState([])
+
   useEffect(() => {
     // имитация получения данных от сервера с ожиданием 1сек
     setTimeout(function () {
@@ -16,10 +18,16 @@ const Furniturs = () => {
   }, [])
 
   return (<>
-    {furnitureId
-      ? (<Furniture furniturs={furniturs} id={furnitureId} />)
-      : (<FurnitursList furniturs={furniturs} />)}
+    {furnitureId ? (
+      edit
+        ? (<EditFurniturePage />)
+        : (<Furniture furniturs={furniturs} id={furnitureId} />)
+    ) : (<FurnitursList furniturs={furniturs} />)
+    }
   </>
   );
 }
 export default Furniturs;
+
+// ? (<Furniture furniturs={furniturs} id={furnitureId} />)
+//       : (<FurnitursList furniturs={furniturs} />)

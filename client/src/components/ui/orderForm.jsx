@@ -16,7 +16,7 @@ const OrderForm = () => {
     needLiftFloor: 'no',
     agreement: false
   })
-  console.log(data);
+  // console.log(data);
   const [errors, setErrors] = useState({})
   const history = useHistory()
   const handleReturnBasket = () => {

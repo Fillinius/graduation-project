@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 const GroupList = () => {
-  const URL_COLLECTIONS = 'http://localhost:3001/collections'
+  const URL_COLLECTIONS = 'http://localhost:3001/types'
   const [collections, setCollections] = useState([])
   useEffect(() => {
     // имитация получения данных от сервера с ожиданием 1сек

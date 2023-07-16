@@ -13,7 +13,7 @@ const Basket = () => {
   }, [])
 
   const handleDeleteItem = (id) => {
-    setItems(prevStates => prevStates.filter((prevState) => prevState.id !== id))
+    setItems(prevStates => prevStates.filter((prevState) => prevState._id !== id))
   }
   const hahdleReset = () => {
     setItems([])
@@ -23,8 +23,8 @@ const Basket = () => {
       <div>
         {items.map((item) => (
           <Counter
-            key={item.id}
-            id={item.id}
+            key={item._id}
+            id={item._id}
             name={item.name}
             price={item.price}
             onDelete={handleDeleteItem}

@@ -6,20 +6,26 @@ import FurniturePage from '../page/furniturePage';
 const Furniture = ({ id, furniturs }) => {
   const history = useHistory()
   const getFurnitureById = (id) => {
-    return furniturs.find((furniture) => furniture.id === id)
+    return furniturs.find((furniture) => furniture._id === id)
   }
   const furniture = getFurnitureById(id)
   const handleReturn = () => {
     history.push('/vitrins')
   }
+
   return (
-    <>
-      <h2>{furniture ? <FurniturePage furniturs={furniturs} id={id} /> : `Furniture with id ${id} not found`}</h2>
+    <div className='container'>
+      <div>
+        {furniture
+          ? <FurniturePage furniture={furniture} />
+          : `Furniture with id ${id} not found`}
+      </div>
+
       <button
         className="btn btn-primary"
         onClick={handleReturn}
       > Вернуться к списку</button>
-    </>
+    </div>
   );
 }
 Furniture.propTypes = {

@@ -16,10 +16,10 @@ const FurnitursList = ({ furniturs }) => {
     setSearch(target.value)
   }
   // Блок для поиска товаров
-  const filterSearchText = furniturs.filter((furniture) => (
-    furniture.name.toLowerCase().includes(search.toLowerCase()))
-  )
-  console.log(filterSearchText);
+  // const filterSearchText = furniturs.filter((furniture) => (
+  //   furniture.name.toLowerCase().includes(search.toLowerCase()))
+  // )
+  // console.log(filterSearchText);
   // счетчик страниц пагинация
   const count = furniturs.length
   const pageSize = 4 // число товаров на стр
@@ -43,10 +43,10 @@ const FurnitursList = ({ furniturs }) => {
         {furniturs.length > 0
           ? (<div className='d-flex'>
             {userCrop.map((furniture) => (
-              <NavLink key={furniture.id} to={`vitrins/${furniture.id}`} >
+              <NavLink key={furniture._id} to={`vitrins/${furniture._id}`} >
                 <div className="container text-center">
                   <div className=" block p-2 g-col-6">
-                    <img className="w-50 h-50" src={furniture.url} alt="foto" />
+                    <img className="w-50 h-50" src={furniture.image} alt="foto" />
                     <h5>{furniture.name}</h5>
                     <p>Lorem*10</p>
                     <p>{furniture.price},руб.</p>

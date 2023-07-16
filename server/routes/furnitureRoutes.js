@@ -5,7 +5,7 @@ const { generateData } = require('../utils/helpers')
 const router = express.Router({ mergeParams: true })
 
 // Получение карточки
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const furniture = await Furniture.find()
     res.status(200).send(furniture)
@@ -19,7 +19,7 @@ router.get('/', auth, async (req, res) => {
 // Создание карточки furniture
 router.post('/', async (req, res) => {
   try {
-    const { vendor_code } = req.body
+    const { vendor_code, name } = req.body
 
     const existingName = await Furniture.findOne({ vendor_code })
 
