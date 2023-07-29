@@ -23,7 +23,7 @@ module.exports = {
       'error',
       {
         arrays: 'only-multiline',
-        objects: 'never',
+        objects: 'only-multiline',
         imports: 'never',
         exports: 'never',
         functions: 'never',
