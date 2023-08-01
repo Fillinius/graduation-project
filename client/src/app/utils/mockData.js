@@ -18,12 +18,6 @@ const useMockData = () => {
   const [status, setStatus] = useState(statusConst.idle)
   const [progress, setProgress] = useState(0)
   const [count, setCount] = useState(0)
-  console.log(furniturs, 'furniturs')
-  console.log(qualities, 'qualities')
-  console.log(sizes, 'sizes')
-  console.log(types, 'types')
-  console.log(users, 'users')
-
   const symmeryCount =
     furniturs.length +
     qualities.length +

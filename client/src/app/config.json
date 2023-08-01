@@ -1,4 +1,4 @@
 {
-  "apiEndPoint": "http://localhost:3001/",
-  "isFireBase": false
+  "apiEndpoint": "https://furniture-51e00-default-rtdb.europe-west1.firebasedatabase.app",
+  "isFireBase": true
 }

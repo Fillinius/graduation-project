@@ -6,7 +6,6 @@ const furnitureEndPoint = 'furniturs/'
 const furnitursService = {
   get: async () => {
     const { data } = await httpService.get(furnitureEndPoint)
-    // console.log(data)
     return data
   },
   create: async (payload) => {

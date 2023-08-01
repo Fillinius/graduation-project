@@ -17,7 +17,7 @@ export const SizeProvider = ({ children }) => {
   useEffect(() => {
     const getSizeList = async () => {
       try {
-        const { content } = await sizeService.get()
+        const content = await sizeService.get()
         setSizes(content)
         setLoading(false)
       } catch (error) {
@@ -30,7 +30,6 @@ export const SizeProvider = ({ children }) => {
   const getSize = (id) => {
     return sizes.find((q) => q._id === id)
   }
-
 
   function errorCatcher(error) {
     const { message } = error.response.data

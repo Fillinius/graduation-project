@@ -17,7 +17,7 @@ export const TypeProvider = ({ children }) => {
   useEffect(() => {
     const getTypeList = async () => {
       try {
-        const { content } = await typeService.get()
+        const content = await typeService.get()
         setTypes(content)
         setLoading(false)
       } catch (error) {
@@ -30,7 +30,6 @@ export const TypeProvider = ({ children }) => {
   const getType = (id) => {
     return types.find((q) => q._id === id)
   }
-
 
   function errorCatcher(error) {
     const { message } = error.response.data

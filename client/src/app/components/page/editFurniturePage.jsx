@@ -22,22 +22,19 @@ const EditFurniturePage = () => {
     image: '',
     price: ''
   });
-  // console.log(furniture, 'data');
-
+  // console.log(furniture.type, 'furniture.type');
   const [qualities, setQualities] = useState([]);
-
   const [professions] = useState([]);
 
-  const typesList = Object.keys(furniture.type).map((typeName) => ({
-    label: furniture.type[typeName].type,
-    value: furniture.type[typeName]._id
-  }));
-  const types = typesList
-  console.log(types, 'types');
+  // const typesList = Object.keys(furniture.type).map((typeName) => ({
+  //   label: furniture.type[typeName].type,
+  //   value: furniture.type[typeName]._id
+  // }));
+  // const types = typesList
 
   // api адреса
-  const URL_FURNITURES = 'http://localhost:3001/furniture/'
-  const URL_QUALITY = 'http://localhost:3001/quality/'
+  const URL_FURNITURES = 'http://localhost:3001/furniturs/'
+  const URL_QUALITY = 'http://localhost:3001/qualities/'
   // const URL_TYPES = 'http://localhost:3001/types/'
   // const URL_SIZES = 'http://localhost:3001/sizes/'
 
@@ -76,7 +73,6 @@ const EditFurniturePage = () => {
   useEffect(() => {
     if (furniture._id) { setLoading(false) }
   }, [furniture])
-  console.log(isLoading);
 
   const getDataById = (datas, dataId) => {
     return datas.find(data => data._id === dataId)
@@ -161,7 +157,7 @@ const EditFurniturePage = () => {
     <div className="container mt-5">
       <div className="row">
         <div className="col-md-6 offset-md-3 shadow p-4">
-          {(
+          {!isLoading && (
             <form onSubmit={handleSubmit}>
               <TextField
                 label='Артикул товара'
@@ -170,14 +166,14 @@ const EditFurniturePage = () => {
                 onChange={handleChange}
                 error={errors.vendor_code}
               />
-              {/* <TextField
+              <TextField
                 label="Тип товара"
                 type="text"
                 name="type"
-                value={type.type}
+                value={furniture.type.type}
                 onChange={handleChange}
                 error={errors.type}
-              /> */}
+              />
               {/* <SelectField
                 label="Выбери тип товара"
                 defaultOption="Choose..."

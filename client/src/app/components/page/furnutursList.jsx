@@ -6,9 +6,14 @@ import Loader from '../../utils/loader';
 import Pagination from '../common/pagination';
 import GroupList from '../common/groupList';
 import paginate from '../../utils/paginate';
+import { useFurniturs } from '../../hooks/useFurniturs';
+import { useType } from '../../hooks/useType';
+import { useSize } from '../../hooks/useSize';
 
-const FurnitursList = ({ furniturs }) => {
-  console.log(furniturs, 'furn');
+const FurnitursList = () => {
+  const { furniturs } = useFurniturs()
+  const { types, isLoading: isLoadingType } = useType()
+  const { sizes, isLoading: isLoadingSizes } = useSize()
   const [search, setSearch] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   // Блок поиска по тексту
@@ -20,22 +25,22 @@ const FurnitursList = ({ furniturs }) => {
   //   furniture.name.toLowerCase().includes(search.toLowerCase()))
   // )
   // console.log(filterSearchText);
-  // счетчик страниц пагинация
 
+  // счетчик страниц пагинация
   const count = furniturs.length
   const pageSize = 4 // число товаров на стр
   const handleChangePage = (pageIndex) => {
     setCurrentPage(pageIndex)
   }
   const userCrop = paginate(furniturs, currentPage, pageSize)
-  // ф-я покупка товара
+  // ф-я покупки товара
   const handleBuy = (id) => {
     console.log('click');
   }
   return (
     <>
       <div className='d-flex'>
-        <GroupList />
+        {!isLoadingType && !isLoadingSizes && (<GroupList types={types} sizes={sizes} />)}
         <Search
           type="text"
           value={search}
@@ -75,6 +80,6 @@ const FurnitursList = ({ furniturs }) => {
   );
 }
 FurnitursList.propTypes = {
-  furniturs: PropTypes.array.isRequired
+  furniturs: PropTypes.array
 }
 export default FurnitursList;

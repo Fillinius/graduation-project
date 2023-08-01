@@ -12,14 +12,12 @@ export const useFurniturs = () => {
 
 const FurnitureProvider = ({ children }) => {
   const [furniturs, setFurniturs] = useState([])
-  console.log(furniturs, 'furniturs');
   // const { currentUser } = useAuth()
   const [isLoading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
   useEffect(() => {
     getFurniturs()
-    console.log('click', getFurniturs())
   }, [])
 
   useEffect(() => {
@@ -31,8 +29,7 @@ const FurnitureProvider = ({ children }) => {
 
   async function getFurniturs() {
     try {
-      const { content } = await furnitursService.get()
-      console.log(content);
+      const content = await furnitursService.get()
       setFurniturs(content)
       setLoading(false)
     } catch (error) {

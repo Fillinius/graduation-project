@@ -10,22 +10,33 @@ import Furniturs from './layouts/furniturs'
 import OrderForm from './components/ui/orderForm'
 import { ToastContainer } from 'react-toastify'
 import FurnitureProvider from './hooks/useFurniturs'
+import { TypeProvider } from './hooks/useType'
+import { SizeProvider } from './hooks/useSize'
 
 function App() {
   return (
     <div>
       <Navbar />
       <FurnitureProvider>
-        <Switch>
-          <Route exact path="/" component={AboutCompany} />
-          <Route path="/furniturs/:furnitureId?/:edit?" component={Furniturs} />
-          <Route path="/contact" component={Contact} />
-          <Route path="/login/:type?" component={Login} />
-          <Route exact path="/basket" component={Basket} />
-          <Route path="/basket/order" component={OrderForm} />
-          <Route path="/404" component={NotFound} />
-          <Redirect from="*" to="/404" />
-        </Switch>
+        <TypeProvider>
+          <SizeProvider>
+            <Switch>
+              <Route exact path="/" component={AboutCompany} />
+              <Route
+                path="/furniturs/:furnitureId?/:edit?"
+                component={Furniturs}
+              />
+              <Route path="/contact" component={Contact} />
+              <Route path="/login/:type?" component={Login} />
+
+              <Route exact path="/basket" component={Basket} />
+
+              <Route path="/basket/order" component={OrderForm} />
+              <Route path="/404" component={NotFound} />
+              <Redirect from="*" to="/404" />
+            </Switch>
+          </SizeProvider>
+        </TypeProvider>
       </FurnitureProvider>
       <ToastContainer />
     </div>

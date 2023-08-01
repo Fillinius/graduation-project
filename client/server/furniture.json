@@ -351,7 +351,7 @@
       "__v": 0
     }
   ],
-  "quality": [
+  "qualities": [
     {
       "_id": "64a599d5043bb2c50c08cd4d",
       "name": "Черный",
@@ -406,5 +406,10 @@
       "updatedAt": "2023-07-05T16:50:40.008Z",
       "__v": 0
     }
+  ],
+  "sizes": [
+    { "_id": "67rdca3eeb7f6fgeed471822", "size": "400" },
+    { "_id": "67rdca3eeb7f6fgeed471824", "size": "600" },
+    { "_id": "67rdca3eeb7f6fgeed471829", "size": "800" }
   ]
 }

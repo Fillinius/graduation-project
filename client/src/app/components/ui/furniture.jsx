@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import FurniturePage from '../page/furniturePage';
+import { useFurniturs } from '../../hooks/useFurniturs';
 
-const Furniture = ({ id, furniturs }) => {
+const Furniture = ({ id }) => {
   const history = useHistory()
+  const { furniturs } = useFurniturs()
   const getFurnitureById = (id) => {
     return furniturs.find((furniture) => furniture._id === id)
   }

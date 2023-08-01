@@ -1,27 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Counter from '../components/common/counter';
 import StatusBuyItems from '../components/common/statusBuyItems';
 import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
+import { useFurniturs } from '../hooks/useFurniturs';
 
 const Basket = () => {
-  // Блок получения элементов
-  const URL_ITEMS = 'http://localhost:3001/furniturs'
-  const [items, setItems] = useState([])
-  // console.log(items);
-  useEffect(() => {
-    fetch(URL_ITEMS).then((response) => (response.json()).then((items) => setItems(items)))
-  }, [])
+  const { furniturs } = useFurniturs()
 
   const handleDeleteItem = (id) => {
-    setItems(prevStates => prevStates.filter((prevState) => prevState._id !== id))
+    // setItems(prevStates => prevStates.filter((prevState) => prevState._id !== id))
   }
   const hahdleReset = () => {
-    setItems([])
+    // setItems([])
   }
   const renderitemsList = () => {
-    return items.length !== 0 && (
+    return furniturs.length !== 0 && (
       <div>
-        {items.map((item) => (
+        {furniturs.map((item) => (
           <Counter
             key={item._id}
             id={item._id}
@@ -37,13 +32,13 @@ const Basket = () => {
       </div>
     )
   }
-  if (items.length !== 0) {
+  if (furniturs.length !== 0) {
     return (
       <>
         <h1>Корзина</h1>
         <span>
           <StatusBuyItems
-            listItem={items.length}
+            listItem={furniturs.length}
           />
         </span>
         <ul>
@@ -55,12 +50,9 @@ const Basket = () => {
   return (
     <div className='m-5'>
       <h1>Корзина</h1>
-      <span className={'badge' + (items.length > 0 ? 'bg-primary' : 'bg-danger')}>Вы еще не положили товары в корзину</span>
+      <span className={'badge' + (furniturs.length > 0 ? 'bg-primary' : 'bg-danger')}>Вы еще не положили товары в корзину</span>
     </div>
   )
 }
 
 export default Basket;
-/*
-
-*/

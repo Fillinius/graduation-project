@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import QualitiesList from './qualities/qualitiesList';
-import axios from 'axios';
 
 const QualityCard = ({ furniture }) => {
-  const promise = axios.get('http://localhost:3001/furniture/')
-  console.log(promise.status);
   return (
     <div className="card">
       <div className="card-boby">
