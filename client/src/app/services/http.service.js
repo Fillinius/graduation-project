@@ -1,15 +1,37 @@
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import configFile from '../config.json'
+import localstorageService from './localstorage.service'
+import authService from './auth.service'
 
-axios.defaults.baseURL = configFile.apiEndpoint
+const http = axios.create({
+  baseURL: configFile.apiEndpoint,
+})
 
-axios.interceptors.request.use(
-  function (config) {
+http.interceptors.request.use(
+  async function (config) {
+    // проверка на наличии слеш в строке браузера
     if (configFile.isFireBase) {
       const containSlash = /\/$/gi.test(config.url)
       config.url =
         (containSlash ? config.url.slice(0, -1) : config.url) + '.json'
+      const expiresData = localstorageService.getExpiresToken()
+      const refreshToken = localstorageService.getRefreshToken()
+      if (refreshToken && expiresData < Date.now()) {
+        const data = await authService.refresh()
+        // console.log(data)
+        localstorageService.setTokens({
+          refreshToken: data.refresh_token,
+          idToken: data.id_token,
+          expiresIn: data.expires_in,
+          localId: data.user_id,
+        })
+      }
+      // config.url = config.url.slice(0, -1) + '.json'
+      const accessToken = localstorageService.getAccessToken()
+      if (accessToken) {
+        config.params = { ...config.params, auth: accessToken }
+      }
     }
     return config
   },
@@ -18,13 +40,13 @@ axios.interceptors.request.use(
   }
 )
 function transformData(data) {
-  return data
+  return data && !data._id
     ? Object.keys(data).map((key) => ({
         ...data[key],
       }))
-    : []
+    : data
 }
-axios.interceptors.response.use(
+http.interceptors.response.use(
   (res) => {
     if (configFile.isFireBase) {
       res.data = transformData(res.data)
@@ -39,15 +61,16 @@ axios.interceptors.response.use(
 
     if (!expectedErrors) {
       console.log(error)
-      toast.error('Something was wrong. Try it later')
+      toast.error('Somthing was wrong. Try it later')
     }
     return Promise.reject(error)
   }
 )
 const httpService = {
-  get: axios.get,
-  post: axios.post,
-  put: axios.put,
-  delete: axios.delete,
+  get: http.get,
+  post: http.post,
+  put: http.put,
+  delete: http.delete,
+  patch: http.patch,
 }
 export default httpService

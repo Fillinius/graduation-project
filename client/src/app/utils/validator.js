@@ -3,16 +3,21 @@ export function validator(data, config) {
   function validate(validateMetod, data, config) {
     let statusValidate
     switch (validateMetod) {
-      case 'isRequared':
-        statusValidate = data.trim() === ''
+      case 'isRequared': {
+        if (typeof data === 'boolean') {
+          statusValidate = data
+        } else {
+          statusValidate = data.trim() === ''
+        }
         break
+      }
       case 'isEmail': {
         const emailregExp = /^\S+@\S+\.\S+$/g
         statusValidate = !emailregExp.test(data)
         break
       }
       case 'isCapitalSymbol': {
-        const capitalregExp = /[А-Я]+/g
+        const capitalregExp = /[A-Z]+/g
         statusValidate = !capitalregExp.test(data)
         break
       }

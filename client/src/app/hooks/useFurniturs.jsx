@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 // import { useAuth } from './useAuth';
 import furnitursService from '../services/furnitursService';
+import Loader from '../utils/loader';
 
 const FurnitursContext = React.createContext()
 
@@ -60,7 +61,7 @@ const FurnitureProvider = ({ children }) => {
 
   return (
     <FurnitursContext.Provider value={{ furniturs }}>
-      {!isLoading ? children : 'Loading ...'}
+      {!isLoading ? children : (<Loader />)}
     </FurnitursContext.Provider>
   )
 }

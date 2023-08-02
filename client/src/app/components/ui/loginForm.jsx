@@ -1,39 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import TextField from '../common/form/textField';
 import { validator } from '../../utils/validator';
+import { useAuth } from '../../hooks/useAuth';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const LoginForm = () => {
   const [data, setData] = useState({ email: '', password: '' })
+  const history = useHistory()
+  const { login } = useAuth()
   const [errors, setErrors] = useState({})
+  const [enterError, setEnterError] = useState(null)
   const handleChange = ({ target }) => {
     setData((prevstate) => ({
       ...prevstate,
       [target.name]: target.value
     }))
+    setEnterError(null)
   }
 
   const validatorConfig = {
     email: {
       isRequared: {
         message: 'Электронная почта обязательна для заполнения'
-      },
-      isEmail: {
-        message: 'Email введен некорректно'
       }
     },
     password: {
       isRequared: {
         message: 'Пароль обязателен для заполнения'
-      },
-      isCapitalSymbol: {
-        message: 'Пароль должен содержать заглавные буквы'
-      },
-      isContainDigit: {
-        message: 'Пароль должен содержать хотя бы одно число'
-      },
-      minWord: {
-        message: 'Пароль должен состоями минимум из 8 символов',
-        value: 8
       }
     }
   }
@@ -47,12 +40,18 @@ const LoginForm = () => {
     return Object.keys(errors).length === 0
   }
   const isValid = Object.keys(errors).length === 0
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const isValid = validate()
 
     if (!isValid) return
     console.log(data)
+    try {
+      await login(data)
+      history.push('furniturs/')
+    } catch (error) {
+      setEnterError(error.message)
+    }
   }
   // const handleKeyDown=(event)=>{
 
@@ -74,9 +73,10 @@ const LoginForm = () => {
         value={data.password}
         onChange={handleChange}
         error={errors.password} />
+      {enterError && (<p className='text-danger'>{enterError}</p>)}
       <button
         type='submit'
-        disabled={!isValid}
+        disabled={!isValid || enterError}
         className='btn btn-primary'
       >Submit</button>
     </form>
