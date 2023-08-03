@@ -8,7 +8,7 @@ const QualityCard = ({ furniture }) => {
       <div className="card-boby">
         <div className="class-text">
           <h3>Cписок возможных цветов</h3>
-          <QualitiesList qualities={furniture.qualites} />
+          <QualitiesList qualities={furniture.qualities} />
         </div>
       </div>
     </div>

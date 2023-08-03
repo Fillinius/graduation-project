@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react';
 import TextField from '../common/form/textField';
 import { validator } from '../../utils/validator';
 import CheckBoxField from '../common/form/checkBoxField';
-import { useAuth } from '../../hooks/useAuth';
+
 import { useHistory } from 'react-router-dom';
 
 const RegisterForm = () => {
   const [data, setData] = useState({
-    name: '',
+
     email: '',
     password: '',
     licence: false
   })
-  const { singUp } = useAuth()
+  // const { singUp } = useAuth()
   const [errors, setErrors] = useState({})
   const history = useHistory()
   const handleChange = ({ target }) => {
@@ -73,7 +73,7 @@ const RegisterForm = () => {
     if (!isValid) return
     console.log(data)
     try {
-      await singUp(data)
+      // await singUp(data)
       history.push('furniturs/')
     } catch (error) {
       setErrors(error)

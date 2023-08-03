@@ -1,6 +1,6 @@
 import httpService from './http.service'
 
-const qualityEndPoind = 'qualities/'
+const qualityEndPoind = 'qualites/'
 const qualityService = {
   get: async () => {
     const { data } = await httpService.get(qualityEndPoind)
