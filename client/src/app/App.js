@@ -13,35 +13,37 @@ import FurnitureProvider from './hooks/useFurniturs'
 import { TypeProvider } from './hooks/useType'
 import { SizeProvider } from './hooks/useSize'
 import { QualityProvider } from './hooks/useQuality'
+import AuthProvider from './hooks/useAuth'
 
 function App() {
   return (
     <div>
-      <Navbar />
-      <FurnitureProvider>
-        <TypeProvider>
-          <SizeProvider>
-            <QualityProvider>
-              <Switch>
-                <Route exact path="/" component={AboutCompany} />
-                <Route
-                  path="/furniturs/:furnitureId?/:edit?"
-                  component={Furniturs}
-                />
-                <Route path="/contact" component={Contact} />
-                <Route path="/login/:type?" component={Login} />
+      <AuthProvider>
+        <Navbar />
+        <FurnitureProvider>
+          <TypeProvider>
+            <SizeProvider>
+              <QualityProvider>
+                <Switch>
+                  <Route exact path="/" component={AboutCompany} />
+                  <Route
+                    path="/furniturs/:furnitureId?/:edit?"
+                    component={Furniturs}
+                  />
+                  <Route path="/contact" component={Contact} />
+                  <Route path="/login/:type?" component={Login} />
 
-                <Route exact path="/basket" component={Basket} />
+                  <Route exact path="/basket" component={Basket} />
 
-                <Route path="/basket/order" component={OrderForm} />
-                <Route path="/404" component={NotFound} />
-                <Redirect from="*" to="/404" />
-              </Switch>
-            </QualityProvider>
-          </SizeProvider>
-        </TypeProvider>
-      </FurnitureProvider>
-
+                  <Route path="/basket/order" component={OrderForm} />
+                  <Route path="/404" component={NotFound} />
+                  <Redirect from="*" to="/404" />
+                </Switch>
+              </QualityProvider>
+            </SizeProvider>
+          </TypeProvider>
+        </FurnitureProvider>
+      </AuthProvider>
       <ToastContainer />
     </div>
   )

@@ -4,14 +4,16 @@ import Quality from './quality';
 import { useQuality } from '../../../hooks/useQuality';
 
 const QualitiesList = ({ qualities }) => {
-  const { quality } = useQuality()
+  const { quality, isLoading } = useQuality()
   // блок получения качества по ID
   const getQualityById = (element) => {
     const qualityArraw = []
-    for (const elem of element) {
-      for (const qual of quality) {
-        if (elem === qual._id) {
-          qualityArraw.push(qual)
+    if (!isLoading) {
+      for (const elem of element) {
+        for (const qual of quality) {
+          if (elem === qual._id) {
+            qualityArraw.push(qual)
+          }
         }
       }
     }

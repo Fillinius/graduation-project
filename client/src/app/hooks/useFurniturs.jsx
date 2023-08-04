@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
-// import { useAuth } from './useAuth';
 import furnitursService from '../services/furnitursService';
 import Loader from '../utils/loader';
 
@@ -21,6 +20,10 @@ const FurnitureProvider = ({ children }) => {
     getFurniturs()
   }, [])
 
+  function errorCatcher(error) {
+    const { message } = error.response.data
+    setError(message)
+  }
   useEffect(() => {
     if (error !== null) {
       toast(error)
@@ -46,10 +49,7 @@ const FurnitureProvider = ({ children }) => {
   //   }
 
   // }, [currentUser])
-  function errorCatcher(error) {
-    const { message } = error.response.data
-    setError(message)
-  }
+
   // function getUserById(userId) {
   //   return users.find((user) => user._id === userId)
   // }

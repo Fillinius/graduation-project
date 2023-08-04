@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react';
 import TextField from '../common/form/textField';
 import { validator } from '../../utils/validator';
 import CheckBoxField from '../common/form/checkBoxField';
-
 import { useHistory } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 
 const RegisterForm = () => {
   const [data, setData] = useState({
-
+    name: '',
     email: '',
     password: '',
     licence: false
   })
-  // const { singUp } = useAuth()
+  const { singUp } = useAuth()
   const [errors, setErrors] = useState({})
   const history = useHistory()
   const handleChange = ({ target }) => {
@@ -23,11 +23,15 @@ const RegisterForm = () => {
   }
 
   const validatorConfig = {
-    // name: {
-    //   isRequared: {
-    //     message: 'Поле обязательно для заполнения'
-    //   }
-    // },
+    name: {
+      isRequared: {
+        message: 'Поле обязательно для заполнения'
+      },
+      minWord: {
+        message: 'Пароль должен состоями минимум из 3 символов',
+        value: 3
+      }
+    },
     email: {
       isRequared: {
         message: 'Электронная почта обязательна для заполнения'
@@ -73,7 +77,7 @@ const RegisterForm = () => {
     if (!isValid) return
     console.log(data)
     try {
-      // await singUp(data)
+      await singUp(data)
       history.push('furniturs/')
     } catch (error) {
       setErrors(error)
@@ -82,13 +86,13 @@ const RegisterForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      {/* <TextField
+      <TextField
         label="Имя"
         type="text"
         name="name"
         value={data.name}
         onChange={handleChange}
-        error={errors.name} /> */}
+        error={errors.name} />
       <TextField
         label="Электронная почта"
         type="email"

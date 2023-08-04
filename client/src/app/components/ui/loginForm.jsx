@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import TextField from '../common/form/textField';
 import { validator } from '../../utils/validator';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useAuth } from '../../hooks/useAuth';
 
 const LoginForm = () => {
   const [data, setData] = useState({ email: '', password: '' })
   const history = useHistory()
-
+  const { logIn } = useAuth()
   const [errors, setErrors] = useState({})
   const [enterError, setEnterError] = useState(null)
   const handleChange = ({ target }) => {
@@ -46,17 +47,13 @@ const LoginForm = () => {
     if (!isValid) return
     console.log(data)
     try {
-      // await login(data)
+      await logIn(data)
       history.push('furniturs/')
     } catch (error) {
-      setEnterError(error.message)
+      setEnterError(error.email)
     }
   }
-  // const handleKeyDown=(event)=>{
-
-  // }
   return (
-
     <form onSubmit={handleSubmit}>
       <TextField
         label="Электронная почта"
@@ -79,7 +76,6 @@ const LoginForm = () => {
         className='btn btn-primary'
       >Submit</button>
     </form>
-
   );
 }
 
