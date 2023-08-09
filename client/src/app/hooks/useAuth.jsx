@@ -4,6 +4,7 @@ import axios from 'axios';
 import userService from '../services/userService';
 import { toast } from 'react-toastify';
 import localStorageService, { setTokens } from '../services/localstorage.service';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 export const httpAuth = axios.create({
   baseURL: 'https://identitytoolkit.googleapis.com/v1/',
@@ -19,8 +20,9 @@ export const useAuth = () => {
 
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState()
-  console.log(currentUser, 'user');
   const [error, setError] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const histoty = useHistory()
 
   // ф-я входа в систему
   async function logIn({ email, password }) {
@@ -31,7 +33,7 @@ const AuthProvider = ({ children }) => {
         returnSecureToken: true
       })
       setTokens(data)
-      getUserData()
+      await getUserData()
     } catch (error) {
       errorCatcher(error)
       const { code, message } = error.response.data.error
@@ -52,6 +54,12 @@ const AuthProvider = ({ children }) => {
       }
     }
   }
+  // Ф-я выхода из системы
+  function logOut() {
+    localStorageService.removeAuthData()
+    setCurrentUser(null)
+    histoty.push('/furniturs')
+  }
   // функция регистрации
   async function singUp({ email, password, ...rest }) {
     const url = `accounts:signUp?key=${process.env.REACT_APP_FIREBASE_KEY}`
@@ -61,6 +69,11 @@ const AuthProvider = ({ children }) => {
       await createUser({
         _id: data.localId,
         email,
+        image: `https://avatars.dicebear.com/api/avataaars/${(
+          Math.random() + 1
+        )
+          .toString(36)
+          .substring(7)}.svg`,
         ...rest
       })
       console.log(data);
@@ -96,12 +109,14 @@ const AuthProvider = ({ children }) => {
       setCurrentUser(content)
     } catch (error) {
       errorCatcher(error)
+    } finally {
+      setIsLoading(false)
     }
   }
   useEffect(() => {
     if (localStorageService.getAccessToken()) {
       getUserData()
-    }
+    } else { setIsLoading(false) }
   }, [])
   useEffect(() => {
     if (error !== null) {
@@ -110,8 +125,8 @@ const AuthProvider = ({ children }) => {
     }
   }, [error])
   return (
-    <AuthContext.Provider value={{ singUp, currentUser, logIn }}>
-      {children}
+    <AuthContext.Provider value={{ singUp, currentUser, logIn, logOut }}>
+      {!isLoading ? children : 'Loading...'}
     </AuthContext.Provider>
   )
 }

@@ -12,7 +12,6 @@ export const useFurniturs = () => {
 
 const FurnitureProvider = ({ children }) => {
   const [furniturs, setFurniturs] = useState([])
-  // const { currentUser } = useAuth()
   const [isLoading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
@@ -40,25 +39,6 @@ const FurnitureProvider = ({ children }) => {
       errorCatcher(error)
     }
   }
-  // useEffect(() => {
-  //   if (!isLoading) {
-  //     const newUsers = [...users]
-  //     const indexUser = newUsers.findIndex((u) => u._id === currentUser._id)
-  //     newUsers[indexUser] = currentUser
-  //     setFurniturs(newUsers)
-  //   }
-
-  // }, [currentUser])
-
-  // function getUserById(userId) {
-  //   return users.find((user) => user._id === userId)
-  // }
-  // return (
-  //   <FurnitursContext.Provider value={{ users, getUserById }}>
-  //     {!isLoading ? children : "Loading ..."}
-  //   </FurnitursContext.Provider>
-  // )
-
   return (
     <FurnitursContext.Provider value={{ furniturs }}>
       {!isLoading ? children : (<Loader />)}

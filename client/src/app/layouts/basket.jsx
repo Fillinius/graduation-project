@@ -1,11 +1,16 @@
 import React from 'react';
 import Counter from '../components/common/counter';
 import StatusBuyItems from '../components/common/statusBuyItems';
-import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { useFurniturs } from '../hooks/useFurniturs';
+import { useAuth } from '../hooks/useAuth';
 
 const Basket = () => {
   const { furniturs } = useFurniturs()
+  const { currentUser } = useAuth()
+  const totalPrice = furniturs.reduce((acc, item) => {
+    return acc + item.price
+  }, 0)
 
   const handleDeleteItem = (id) => {
     // setItems(prevStates => prevStates.filter((prevState) => prevState._id !== id))
@@ -25,10 +30,13 @@ const Basket = () => {
             onDelete={handleDeleteItem}
           />
         ))}
+        <h3>Итоговая стоимость: {totalPrice} руб.</h3>
         <button
           className='btn btn-secondary'
           onClick={hahdleReset}>Очистка корзины</button>
-        <NavLink to='/basket/order'>Оформить заказ</NavLink>
+        {currentUser
+          ? (<Link to='/basket/order'>Оформить заказ</Link>)
+          : <Link to='/Login'>Оформить заказ</Link>}
       </div>
     )
   }

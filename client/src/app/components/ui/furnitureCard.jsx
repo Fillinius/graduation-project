@@ -18,7 +18,7 @@ const FurnitureCard = ({ furniture }) => {
   );
 }
 FurnitureCard.propTypes = {
-  furniture: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
+  furniture: PropTypes.object
 }
 
 export default FurnitureCard;

@@ -48,7 +48,7 @@ const LoginForm = () => {
     console.log(data)
     try {
       await logIn(data)
-      history.push('furniturs/')
+      history.push(`furniturs/`)
     } catch (error) {
       setEnterError(error.email)
     }

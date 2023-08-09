@@ -39,6 +39,7 @@ const localStorageService = {
   getRefreshToken,
   getExpiresToken,
   getUserId,
+  removeAuthData,
 }
 
 export default localStorageService

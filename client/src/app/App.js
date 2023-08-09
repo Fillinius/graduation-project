@@ -14,35 +14,44 @@ import { TypeProvider } from './hooks/useType'
 import { SizeProvider } from './hooks/useSize'
 import { QualityProvider } from './hooks/useQuality'
 import AuthProvider from './hooks/useAuth'
+import User from './layouts/user'
+import ProtectedRoute from './components/common/protectedRoute'
+import LogOut from './layouts/logOut'
+import UserProvider from './hooks/useUsers'
 
 function App() {
   return (
     <div>
       <AuthProvider>
         <Navbar />
-        <FurnitureProvider>
-          <TypeProvider>
-            <SizeProvider>
-              <QualityProvider>
-                <Switch>
-                  <Route exact path="/" component={AboutCompany} />
-                  <Route
-                    path="/furniturs/:furnitureId?/:edit?"
-                    component={Furniturs}
-                  />
-                  <Route path="/contact" component={Contact} />
-                  <Route path="/login/:type?" component={Login} />
-
-                  <Route exact path="/basket" component={Basket} />
-
-                  <Route path="/basket/order" component={OrderForm} />
-                  <Route path="/404" component={NotFound} />
-                  <Redirect from="*" to="/404" />
-                </Switch>
-              </QualityProvider>
-            </SizeProvider>
-          </TypeProvider>
-        </FurnitureProvider>
+        <UserProvider>
+          <FurnitureProvider>
+            <TypeProvider>
+              <SizeProvider>
+                <QualityProvider>
+                  <Switch>
+                    <Route exact path="/" component={AboutCompany} />
+                    <ProtectedRoute
+                      path="/users/:userId?/:edit?"
+                      component={User}
+                    />
+                    <Route
+                      path="/furniturs/:furnitureId?"
+                      component={Furniturs}
+                    />
+                    <Route path="/contact" component={Contact} />
+                    <Route path="/login/:type?" component={Login} />
+                    <Route path="/logout" component={LogOut} />
+                    <ProtectedRoute exact path="/basket" component={Basket} />
+                    <Route path="/basket/order" component={OrderForm} />
+                    <Route path="/404" component={NotFound} />
+                    <Redirect from="*" to="/404" />
+                  </Switch>
+                </QualityProvider>
+              </SizeProvider>
+            </TypeProvider>
+          </FurnitureProvider>
+        </UserProvider>
       </AuthProvider>
       <ToastContainer />
     </div>
