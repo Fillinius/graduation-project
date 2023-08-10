@@ -24,6 +24,16 @@ const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true)
   const histoty = useHistory()
 
+  // ф-я обновления пользователя
+  async function updateUserData(data) {
+    try {
+      const content = await userService.getUpdateCurrentUser(data)
+      setCurrentUser(content)
+      console.log(content);
+    } catch (error) {
+      errorCatcher(error)
+    }
+  }
   // ф-я входа в систему
   async function logIn({ email, password }) {
     try {
@@ -125,7 +135,7 @@ const AuthProvider = ({ children }) => {
     }
   }, [error])
   return (
-    <AuthContext.Provider value={{ singUp, currentUser, logIn, logOut }}>
+    <AuthContext.Provider value={{ singUp, currentUser, logIn, logOut, updateUserData }}>
       {!isLoading ? children : 'Loading...'}
     </AuthContext.Provider>
   )

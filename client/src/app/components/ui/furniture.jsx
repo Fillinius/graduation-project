@@ -6,7 +6,7 @@ import { useFurniturs } from '../../hooks/useFurniturs';
 
 const Furniture = ({ id }) => {
   const history = useHistory()
-  const { furniturs } = useFurniturs()
+  const { furniturs, isLoading } = useFurniturs()
   const getFurnitureById = (id) => {
     return furniturs.find((furniture) => furniture._id === id)
   }
@@ -14,11 +14,10 @@ const Furniture = ({ id }) => {
   const handleReturn = () => {
     history.push('/furniturs')
   }
-
   return (
     <div className='container'>
       <div>
-        {furniture
+        {furniture && !isLoading
           ? <FurniturePage furniture={furniture} />
           : `Furniture with id ${id} not found`}
       </div>

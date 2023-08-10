@@ -42,8 +42,11 @@ function App() {
                     <Route path="/contact" component={Contact} />
                     <Route path="/login/:type?" component={Login} />
                     <Route path="/logout" component={LogOut} />
-                    <ProtectedRoute exact path="/basket" component={Basket} />
-                    <Route path="/basket/order" component={OrderForm} />
+                    <Route exact path="/basket" component={Basket} />
+                    <ProtectedRoute
+                      path="/basket/order"
+                      component={OrderForm}
+                    />
                     <Route path="/404" component={NotFound} />
                     <Redirect from="*" to="/404" />
                   </Switch>

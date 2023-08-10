@@ -18,7 +18,7 @@ const Comment = ({
     <div className="bg-light card-body  mb-3">
       <div className="row">
         <div className="col">
-          <div className="d-flex flex-start ">
+          {user && (<div className="d-flex flex-start ">
             <img
               src={user.image}
               className="rounded-circle shadow-1-strong me-3"
@@ -48,7 +48,7 @@ const Comment = ({
                 <p className="small mb-0">{content}</p>
               </div>
             </div>
-          </div>
+          </div>)}
         </div>
       </div>
     </div>

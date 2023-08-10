@@ -4,14 +4,16 @@ import Size from './sizes';
 import { useSize } from '../../../hooks/useSize';
 
 const SizesList = ({ sizes }) => {
-  // console.log(sizes, (sizes));
   const { size } = useSize()
+  console.log(sizes, 'sizes');
   // const getSizeById = (element) => {
   //   const sizeArray = []
-  //   for (const elem of element) {
-  //     for (const siz of size) {
-  //       if (elem === siz._id) {
-  //         sizeArray.push(siz)
+  //   if (!isLoading) {
+  //     for (const elem of element) {
+  //       for (const siz of size) {
+  //         if (elem === siz._id) {
+  //           sizeArray.push(siz)
+  //         }
   //       }
   //     }
   //   }

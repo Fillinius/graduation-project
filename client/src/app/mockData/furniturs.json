@@ -27,11 +27,7 @@
     "name": "Тумба коллекция classic",
     "image": "https://api.dicebear.com/6.x/shapes/svg?seed=Mittens",
     "qualities": ["64a599d5043bb2c50c08cd4d", "64a599d5043bb2c50c08cd4c"],
-    "sizes": [
-      "67rdca3eeb7f6fgeed471822",
-      "67rdca3eeb7f6fgeed471824",
-      "67rdca3eeb7f6fgeed471829"
-    ],
+    "sizes": ["67rdca3eeb7f6fgeed471822", "67rdca3eeb7f6fgeed471824"],
     "price": 2266,
     "createdAt": "2023-07-08T06:09:49.281Z",
     "updatedAt": "2023-07-08T06:09:49.281Z",
@@ -44,11 +40,7 @@
     "name": "Тумба коллекция standart",
     "image": "https://api.dicebear.com/6.x/shapes/svg?seed=Misty",
     "qualities": ["64a599d5043bb2c50c08cd4e", "64a599d5043bb2c50c08cd4c"],
-    "sizes": [
-      "67rdca3eeb7f6fgeed471822",
-      "67rdca3eeb7f6fgeed471824",
-      "67rdca3eeb7f6fgeed471829"
-    ],
+    "sizes": ["67rdca3eeb7f6fgeed471824", "67rdca3eeb7f6fgeed471829"],
     "price": 1275,
     "createdAt": "2023-07-08T06:10:12.411Z",
     "updatedAt": "2023-07-08T06:10:12.411Z",
@@ -61,11 +53,7 @@
     "name": "Шкаф зеркальный коллекция standart",
     "image": "https://api.dicebear.com/6.x/shapes/svg?seed=Bubba",
     "qualities": ["64a599d5043bb2c50c08cd4d", "64a599d5043bb2c50c08cd4e"],
-    "sizes": [
-      "67rdca3eeb7f6fgeed471822",
-      "67rdca3eeb7f6fgeed471824",
-      "67rdca3eeb7f6fgeed471829"
-    ],
+    "sizes": ["67rdca3eeb7f6fgeed471822", "67rdca3eeb7f6fgeed471829"],
     "price": 2277,
     "createdAt": "2023-07-08T06:11:38.042Z",
     "updatedAt": "2023-07-08T06:11:38.042Z",
@@ -98,16 +86,8 @@
     "vendor_code": "6",
     "name": "Пенал коллекция classic",
     "image": "https://api.dicebear.com/6.x/shapes/svg?seed=Bob",
-    "qualities": [
-      "64a599d5043bb2c50c08cd4d",
-      "64a599d5043bb2c50c08cd4e",
-      "64a599d5043bb2c50c08cd4c"
-    ],
-    "sizes": [
-      "67rdca3eeb7f6fgeed471822",
-      "67rdca3eeb7f6fgeed471824",
-      "67rdca3eeb7f6fgeed471829"
-    ],
+    "qualities": ["64a599d5043bb2c50c08cd4d"],
+    "sizes": ["67rdca3eeb7f6fgeed471822"],
     "price": 1434,
     "createdAt": "2023-07-08T06:12:15.542Z",
     "updatedAt": "2023-07-08T06:12:15.542Z",
@@ -119,11 +99,7 @@
     "vendor_code": "7",
     "name": "Пенал коллекция standart",
     "image": "https://api.dicebear.com/6.x/shapes/svg?seed=Sasha",
-    "qualities": [
-      "64a599d5043bb2c50c08cd4d",
-      "64a599d5043bb2c50c08cd4e",
-      "64a599d5043bb2c50c08cd4c"
-    ],
+    "qualities": ["64a599d5043bb2c50c08cd4e"],
     "sizes": ["67rdca3eeb7f6fgeed471822", "67rdca3eeb7f6fgeed471824"],
     "price": 2459,
     "createdAt": "2023-07-08T06:12:28.514Z",
