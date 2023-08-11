@@ -5,34 +5,24 @@ import { validator } from '../../utils/validator';
 import TextField from '../common/form/textField';
 
 const EditUserPage = () => {
-  const { currentUser } = useAuth()
+  const { currentUser, updateUserData } = useAuth()
   const [isLoading, setIsLoading] = useState(true)
   const [errors, setErrors] = useState()
   const [data, setData] = useState()
-
   const history = useHistory()
-  const handleEdit = () => {
-    history.push(history.location.pathname + '/edit')
 
-    useEffect(() => {
-      console.log(currentUser, 'currentUser');
-      console.log(data, 'data');
-      console.log(errors, 'errors')
-      if (!data) setData(currentUser)
-    }, [data])
-    console.log(currentUser, 'currentUser');
-    console.log(data, 'data');
-    console.log(errors, 'errors');
+  useEffect(() => {
+    setData(currentUser)
+  }, [currentUser])
 
-    useEffect(() => {
-      if (data && isLoading) {
-        setIsLoading(false)
-      }
-    }, [data])
-  }
-  console.log(handleEdit);
+  useEffect(() => {
+    if (data && isLoading) {
+      setIsLoading(false)
+    }
+  }, [data])
+
   // блок событие ввода данных в форму
-  const handleChange = (target) => {
+  const handleChange = ({ target }) => {
     setData((prevState) => ({
       ...prevState,
       [target.name]: target.value
@@ -42,8 +32,11 @@ const EditUserPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const isValid = validate();
-    console.log(isValid);
-    // if (!isValid) return
+    if (!isValid) return
+    console.log(data, 'data hand');
+    console.log(updateUserData());
+    await updateUserData(data)
+    history.push(history.location.pathname)
   }
   // блок валидации по полю
   useEffect(() => {
@@ -54,7 +47,7 @@ const EditUserPage = () => {
     setErrors(errors)
     return Object.keys(errors).length === 0
   }
-  // const isValid = Object.keys(errors).length === 0
+  const isValid = Object.keys(errors).length === 0
 
   // блок валидатор
   const validatorConfig = {
@@ -75,28 +68,27 @@ const EditUserPage = () => {
   }
   return (
     <div className='m-5'>
-      {currentUser ? (
+      {currentUser && !isLoading ? (
         <form onSubmit={handleSubmit}>
           <TextField
             label='Почта'
             value={data.email}
             name='email'
-            onChange={handleChange} />
-          {/* error={errors.email}  */}
-
+            onChange={handleChange}
+            error={errors.email}
+          />
           <TextField
             label='Выберите Ваше имя'
             type='text'
             value={data.name}
             name='name'
             onChange={handleChange}
-          // error={errors.name}
+            error={errors.name}
           />
-
           <button
             className="btn btn-primary w-100 mx-auto"
             type='submit'
-          // disabled={!isValid}
+            disabled={!isValid}
           >
             Submit</button>
         </form>

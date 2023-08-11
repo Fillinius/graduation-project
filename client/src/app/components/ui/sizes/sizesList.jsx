@@ -6,27 +6,32 @@ import { useSize } from '../../../hooks/useSize';
 const SizesList = ({ sizes }) => {
   const { size } = useSize()
   console.log(sizes, 'sizes');
-  // const getSizeById = (element) => {
-  //   const sizeArray = []
-  //   if (!isLoading) {
-  //     for (const elem of element) {
-  //       for (const siz of size) {
-  //         if (elem === siz._id) {
-  //           sizeArray.push(siz)
-  //         }
-  //       }
-  //     }
-  //   }
-  //   return sizeArray
-  // }
-  // const sizeList = getSizeById(sizes)
-  // console.log(sizeList, 'sizeList');
+  function get() {
+    if (sizes) {
+      const getSizeById = (element) => {
+        const sizeArray = []
+        for (const elem of element) {
+          for (const siz of size) {
+            if (elem === siz._id) {
+              sizeArray.push(siz)
+            }
+          }
+        }
+        return sizeArray
+      }
+      const sizeList = getSizeById(sizes)
+      return sizeList
+    }
+  }
+  const sizeList = get()
   return (
-    <div>
-      {size.map((s) => (
-        <span key={s._id}> <Size {...s} /> </span>
-      ))}
-    </div>
+    <>
+      {sizeList && (<div>
+        {sizeList.map((s) => (
+          <span key={s._id}> <Size {...s} /> </span>
+        ))}
+      </div>)}
+    </>
   );
 }
 SizesList.propTypes = {

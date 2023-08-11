@@ -5,15 +5,16 @@ import PropTypes from 'prop-types';
 const FurnitureCard = ({ furniture }) => {
   return (
     <div className="card">
-      <img src={furniture.image} className="card-img-top" alt="Foto furniture" style={{ height: '500px' }} />
-      <div className="card-boby">
-        <div className="class-text">
-          <h2>Тип товара- (<Type type={furniture.type} />) </h2>
-          <p>Название товара -{furniture.name} </p>
-          <p>Стоимость товара - {furniture.price},00 руб.</p>
+      {furniture && (<>
+        <img src={furniture.image} className="card-img-top" alt="Foto furniture" style={{ height: '500px' }} />
+        <div className="card-boby">
+          <div className="class-text">
+            <h2>Тип товара- (<Type type={furniture.type} />) </h2>
+            <p>Название товара -{furniture.name} </p>
+            <p>Стоимость товара - {furniture.price},00 руб.</p>
+          </div>
         </div>
-
-      </div>
+      </>)}
     </div>
   );
 }
