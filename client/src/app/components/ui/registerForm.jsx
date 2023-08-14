@@ -108,7 +108,7 @@ const RegisterForm = () => {
         onChange={handleChange}
         error={errors.password} />
       <CheckBoxField
-        name='license'
+        name='licence'
         value={data.licence}
         onChange={handleChange}
         error={errors.licence}

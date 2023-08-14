@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Quality from './quality';
-import { useQuality } from '../../../hooks/useQuality';
+import { useSelector } from 'react-redux';
+import { getQualities, getQualitiesLoading } from '../../../store/qualities';
 
 const QualitiesList = ({ qualities }) => {
-  const { quality, isLoading } = useQuality()
+  const quality = useSelector(getQualities())
+  const isLoading = useSelector(getQualitiesLoading())
   // блок получения качества по ID
   const getQualityById = (element) => {
     const qualityArraw = []

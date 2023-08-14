@@ -1,15 +1,15 @@
 import React from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import { useUser } from '../../hooks/useUsers';
 import localStorageService from '../../services/localstorage.service';
+import { useSelector } from 'react-redux';
+import { getUsersById } from '../../store/users';
 
 const UserPage = () => {
   const history = useHistory()
   const { currentUser } = useAuth()
-  const { getUserById } = useUser()
   const userId = localStorageService.getUserId()
-  const user = getUserById(userId)
+  const user = useSelector(getUsersById(userId))
   const handleClick = () => {
     history.push(`${userId}/edit`)
   }

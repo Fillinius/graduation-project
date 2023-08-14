@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import formatTime from '../../../utils/formatTime';
 import { useAuth } from '../../../hooks/useAuth';
-import { useUser } from '../../../hooks/useUsers';
-
+import { useSelector } from 'react-redux'
+import { getUsersById } from '../../../store/users';
 const Comment = ({
   content,
   created_at: created,
@@ -11,11 +11,10 @@ const Comment = ({
   userId,
   onRemove
 }) => {
-  const { getUserById } = useUser()
   const { currentUser } = useAuth()
-  const user = getUserById(userId);
+  const user = useSelector(getUsersById(userId));
   return (
-    <div className="bg-light card-body  mb-3">
+    <div className=" card-body  mb-3">
       <div className="row">
         <div className="col">
           {user && (<div className="d-flex flex-start ">

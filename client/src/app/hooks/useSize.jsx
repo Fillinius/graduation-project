@@ -10,7 +10,7 @@ export const useSize = () => {
 }
 
 export const SizeProvider = ({ children }) => {
-  const [size, setSizes] = useState([])
+  const [sizes, setSizes] = useState([])
   const [error, setError] = useState(null)
   const [isLoading, setLoading] = useState(true)
 
@@ -28,7 +28,7 @@ export const SizeProvider = ({ children }) => {
   }, [])
 
   const getSize = (id) => {
-    return size.find((q) => q._id === id)
+    return sizes.find((q) => q._id === id)
   }
 
   function errorCatcher(error) {
@@ -44,7 +44,7 @@ export const SizeProvider = ({ children }) => {
   return (
     <SizeContext.Provider
       value={{
-        size,
+        sizes,
         isLoading,
         getSize
       }}>

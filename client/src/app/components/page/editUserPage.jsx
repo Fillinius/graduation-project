@@ -7,7 +7,7 @@ import TextField from '../common/form/textField';
 const EditUserPage = () => {
   const { currentUser, updateUserData } = useAuth()
   const [isLoading, setIsLoading] = useState(true)
-  const [errors, setErrors] = useState()
+  const [errors, setErrors] = useState(null)
   const [data, setData] = useState()
   const history = useHistory()
 
@@ -47,7 +47,9 @@ const EditUserPage = () => {
     setErrors(errors)
     return Object.keys(errors).length === 0
   }
-  const isValid = Object.keys(errors).length === 0
+  console.log(errors);
+  const isValid = {}
+  // const isValid = Object.keys(errors).length === 0
 
   // блок валидатор
   const validatorConfig = {

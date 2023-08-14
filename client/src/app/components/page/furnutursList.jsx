@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Search from '../ui/search';
 import Loader from '../../utils/loader';
 import Pagination from '../common/pagination';
 import GroupList from '../common/groupList';
 import paginate from '../../utils/paginate';
-import { useFurniturs } from '../../hooks/useFurniturs';
 import { useType } from '../../hooks/useType';
 import { useSize } from '../../hooks/useSize';
+import { useSelector } from 'react-redux';
+import { getFurniturs } from '../../store/furniturs';
+import FurnitursListPage from './furnitursListPage';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 const FurnitursList = () => {
-  const { furniturs } = useFurniturs()
+  const furniturs = useSelector(getFurniturs())
+  const furnitursId = useParams()
   const { types, isLoading: isLoadingType } = useType()
   const { sizes, isLoading: isLoadingSizes } = useSize()
   const [search, setSearch] = useState('')
@@ -21,11 +25,9 @@ const FurnitursList = () => {
     setSearch(target.value)
   }
   // Блок для поиска товаров
-  // const filterSearchText = furniturs.filter((furniture) => (
-  //   furniture.name.toLowerCase().includes(search.toLowerCase()))
-  // )
-  // console.log(filterSearchText);
-
+  const filterSearchText = furniturs.filter((furniture) => (
+    furniture.name.toLowerCase().includes(search.toLowerCase()))
+  )
   // счетчик страниц пагинация
   const count = furniturs.length
   const pageSize = 4 // число товаров на стр
@@ -34,8 +36,10 @@ const FurnitursList = () => {
   }
   const userCrop = paginate(furniturs, currentPage, pageSize)
   // ф-я покупки товара
-  const handleBuy = (id) => {
+  const handleBuy = () => {
     console.log('click');
+    const furnitursBuy = furniturs.find((f) => f._id === furnitursId)
+    console.log(furnitursBuy);
   }
   return (
     <>
@@ -48,28 +52,13 @@ const FurnitursList = () => {
         />
         {furniturs.length > 0
           ? (<div className='d-flex'>
-            {userCrop.map((furniture) => (
-              <NavLink key={furniture._id} to={`furniturs/${furniture._id}`} >
-                <div className="container text-center">
-                  <div className=" block p-2 g-col-6">
-                    <img className="w-50 h-50" src={furniture.image} alt="foto" />
-                    <h5>{furniture.name}</h5>
-                    <p>Lorem*10</p>
-                    <p>{furniture.price},руб.</p>
-                    <button
-                      className="btn btn-primary"
-                      onClick={handleBuy} >Buy</button>
-                  </div>
-                </div>
-              </NavLink>
-            ))
-            }
+            <FurnitursListPage furnitustList={search === '' ? userCrop : filterSearchText} onChange={handleBuy} />
           </div>)
           : <Loader />
         }
         < div className='justify-content-center' >
           <Pagination
-            itemsCount={count}
+            itemsCount={search === '' ? count : filterSearchText}
             size={pageSize}
             currentPage={currentPage}
             onPageChange={handleChangePage} />
@@ -80,6 +69,6 @@ const FurnitursList = () => {
   );
 }
 FurnitursList.propTypes = {
-  furniturs: PropTypes.array
+  furniturs: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
 }
 export default FurnitursList;

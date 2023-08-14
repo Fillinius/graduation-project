@@ -2,15 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import FurniturePage from '../page/furniturePage';
-import { useFurniturs } from '../../hooks/useFurniturs';
+import { useSelector } from 'react-redux';
+import { getFurnitursById, getFurnitursLoading } from '../../store/furniturs';
 
 const Furniture = ({ id }) => {
   const history = useHistory()
-  const { furniturs, isLoading } = useFurniturs()
-  const getFurnitureById = (id) => {
-    return furniturs.find((furniture) => furniture._id === id)
-  }
-  const furniture = getFurnitureById(id)
+  const isLoading = useSelector(getFurnitursLoading())
+  const furniture = useSelector(getFurnitursById(id))
   const handleReturn = () => {
     history.push('/furniturs')
   }
