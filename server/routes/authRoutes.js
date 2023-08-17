@@ -1,7 +1,7 @@
 const express = require('express')
 const bcrypt = require('bcryptjs')
 const { check, validationResult } = require('express-validator')
-const { generateUserData } = require('../utils/helpers')
+// const { generateUserData } = require('../utils/helpers')
 const router = express.Router({ mergeParams: true })
 const tokenService = require('../servises/token.service')
 const User = require('../models/User')
@@ -25,6 +25,7 @@ router.post('/signUp', [
           error: {
             message: 'INVALID_DATA',
             code: 400,
+            errors: errors.array(),
           },
         })
       }
@@ -63,7 +64,7 @@ router.post('/signUp', [
 ])
 // 1 valiator
 // 2 find user
-// 3 compare hased password
+// 3 compare hashed password
 // 4 generate tiken
 // 5 return data
 
@@ -87,7 +88,7 @@ router.post('/signInWithPassword', [
       if (!existingUser) {
         return res.status(400).json({
           error: {
-            message: 'EMAIL IS NOT FOUND',
+            message: 'EMAIL_IS_NOT_FOUND',
             code: 400,
           },
         })
@@ -100,7 +101,7 @@ router.post('/signInWithPassword', [
       if (!isPasswordEqual) {
         return res.status(400).json({
           error: {
-            message: 'INVALID PASSWORD',
+            message: 'INVALID_PASSWORD',
             code: 400,
           },
         })
@@ -116,22 +117,23 @@ router.post('/signInWithPassword', [
     }
   },
 ])
+
+function isTokenInvalid(data, dbToken) {
+  !data || !dbToken || data._id !== dbToken?.user?.toString()
+}
+
 router.post('/token', async (req, res) => {
   try {
     const { refresh_token: refreshToken } = req.body
-    const dataTokehRefresh = tokenService.validateRefresh(refreshToken)
+    const data = tokenService.validateRefresh(refreshToken)
     const dbToken = await tokenService.findToken(refreshToken)
-    console.log(dataTokehRefresh)
+    console.log(data)
     console.log(dbToken)
-    if (
-      !dataTokehRefresh ||
-      !dbToken ||
-      dataTokehRefresh._id !== dbToken?.user.toString()
-    ) {
+    if (isTokenInvalid(data, dbToken)) {
       return res.status(401).json({ message: 'Unauthorized' })
     }
-    const tokens = await tokenService.generate({ _id: dataTokehRefresh._id })
-    await tokenService.save(dataTokehRefresh._id, tokens.refreshToken)
+    const tokens = await tokenService.generate({ _id: data._id })
+    await tokenService.save(data._id, tokens.refreshToken)
     // res.status(200).send({ tokens })
     res.status(200).send({ ...tokens, userId: data._id })
   } catch (error) {

@@ -2,13 +2,9 @@ const jwt = require('jsonwebtoken')
 const config = require('config')
 const Token = require('../models/Token')
 
-// const secretKey = config.get('accessSecret')
-// const refreshKey = config.get('refreshSecret')
-
 class TokenService {
+  // return: accessToken, refreshToken, expiresIn
   generate(payload) {
-    // console.log(payload)
-
     const accessToken = jwt.sign(payload, config.get('accessSecret'), {
       expiresIn: '1h',
     })
@@ -22,23 +18,15 @@ class TokenService {
       data.refreshToken = refreshToken
       return data.save()
     }
+
     const token = await Token.create({ user, refreshToken })
     return token
   }
+
   validateRefresh(refreshToken) {
-    // console.log(refreshToken)
-    // console.log(config.get('refreshSecret'))
     try {
       return jwt.verify(refreshToken, config.get('refreshSecret'))
-    } catch (error) {
-      return null
-    }
-  }
-
-  async findToken(refreshToken) {
-    try {
-      return await Token.findOne({ refreshToken })
-    } catch (error) {
+    } catch (e) {
       return null
     }
   }
@@ -46,17 +34,18 @@ class TokenService {
   validateAccess(accessToken) {
     try {
       return jwt.verify(accessToken, config.get('accessSecret'))
-    } catch (error) {
+    } catch (e) {
+      return null
+    }
+  }
+
+  async findToken(refreshToken) {
+    try {
+      return await Token.findOne({ refreshToken })
+    } catch (e) {
       return null
     }
   }
 }
 
 module.exports = new TokenService()
-
-// interface Tokens {
-// 	userId: string
-// 	accessToken: string
-// 	refreshToken: string
-// 	exporesIn: number
-// }

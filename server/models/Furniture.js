@@ -6,7 +6,7 @@ const schema = new Schema(
     name: { type: String },
     type: { type: Schema.Types.ObjectId, ref: 'Types' },
     image: { type: String },
-    size: { type: Schema.Types.ObjectId, ref: 'Size' },
+    size: [{ type: Schema.Types.ObjectId, ref: 'Size' }],
     qualites: [{ type: Schema.Types.ObjectId, ref: 'Quality' }],
     price: Number,
   },
@@ -14,4 +14,4 @@ const schema = new Schema(
     timestamps: true,
   }
 )
-module.exports = model('Furniture', schema)
+module.exports = model('Furnitur', schema)

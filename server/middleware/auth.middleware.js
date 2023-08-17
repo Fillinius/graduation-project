@@ -11,14 +11,14 @@ module.exports = (req, res, next) => {
       return res.status(401).json({ message: 'Unauthorized' })
     }
 
-    const data = tokenService(token)
-    console.log(data)
+    const data = tokenService.validateAccess(token)
+    console.log('Decoder', data)
+    req.user = data
     if (!data) {
-      return res.status(401).json({ message: 'Unauthorized' })
+      return res.status(401).json({ message: 'Unauthorized err' })
     }
-    req.furniture = data
     next()
-  } catch (error) {
+  } catch (e) {
     res.status(401).json({ message: 'Unauthorized' })
   }
 }

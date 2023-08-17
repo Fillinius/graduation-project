@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 })
 
 // Создание карточки furniture
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
   try {
     const { vendor_code, name } = req.body
 
@@ -48,7 +48,7 @@ router.post('/', async (req, res) => {
 // изменение карточки по id
 router.patch('/:furnitureId', auth, async (req, res) => {
   try {
-    const { furnitureId } = req.params()
+    const { furnitureId } = req.params
     console.log(req.furniture)
     if (furnitureId === req.furniture._id) {
       const updatedFurniture = await Furniture.findByIdAndUpdate(
@@ -70,7 +70,7 @@ router.patch('/:furnitureId', auth, async (req, res) => {
 // Удаление карточки товара
 router.delete('/:remove', auth, async (req, res) => {
   try {
-    const { remove } = req.params()
+    const { remove } = req.params
     const removeFurniture = await Furniture.findById(remove)
     await removeFurniture.remove()
   } catch (error) {
