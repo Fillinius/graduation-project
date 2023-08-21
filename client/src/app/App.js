@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import AboutCompany from './layouts/aboutCompany'
 import Contact from './layouts/contact'
@@ -9,58 +9,35 @@ import NotFound from './components/common/notFound'
 import Furniturs from './layouts/furniturs'
 import OrderForm from './components/ui/orderForm'
 import { ToastContainer } from 'react-toastify'
-import FurnitureProvider from './hooks/useFurniturs'
 import { TypeProvider } from './hooks/useType'
 import { SizeProvider } from './hooks/useSize'
-// import { QualityProvider } from './hooks/useQuality'
-import AuthProvider from './hooks/useAuth'
 import User from './layouts/user'
 import ProtectedRoute from './components/common/protectedRoute'
 import LogOut from './layouts/logOut'
-import UserProvider from './hooks/useUsers'
-import { useDispatch } from 'react-redux'
-import { loadQualitiesList } from './store/qualities'
-import { loadFurnitursList } from './store/furniturs'
-import { loadUsersList } from './store/users'
+import AppLoader from './components/ui/hoc/appLoader'
 
 function App() {
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(loadQualitiesList())
-    dispatch(loadFurnitursList())
-    dispatch(loadUsersList())
-  }, [])
   return (
     <div>
-      <AuthProvider>
+      <AppLoader>
         <Navbar />
-        <UserProvider>
-          <FurnitureProvider>
-            <TypeProvider>
-              <SizeProvider>
-                <Switch>
-                  <Route exact path="/" component={AboutCompany} />
-                  <ProtectedRoute
-                    path="/users/:userId?/:edit?"
-                    component={User}
-                  />
-                  <Route
-                    path="/furniturs/:furnitureId?"
-                    component={Furniturs}
-                  />
-                  <Route path="/contact" component={Contact} />
-                  <Route path="/login/:type?" component={Login} />
-                  <Route path="/logout" component={LogOut} />
-                  <Route exact path="/basket" component={Basket} />
-                  <ProtectedRoute path="/basket/order" component={OrderForm} />
-                  <Route path="/404" component={NotFound} />
-                  <Redirect from="*" to="/404" />
-                </Switch>
-              </SizeProvider>
-            </TypeProvider>
-          </FurnitureProvider>
-        </UserProvider>
-      </AuthProvider>
+        <TypeProvider>
+          <SizeProvider>
+            <Switch>
+              <Route exact path="/" component={AboutCompany} />
+              <ProtectedRoute path="/users/:userId?/:edit?" component={User} />
+              <Route path="/furniturs/:furnitureId?" component={Furniturs} />
+              <Route path="/contact" component={Contact} />
+              <Route path="/login/:type?" component={Login} />
+              <Route path="/logout" component={LogOut} />
+              <Route exact path="/basket" component={Basket} />
+              <ProtectedRoute path="/basket/order" component={OrderForm} />
+              <Route path="/404" component={NotFound} />
+              <Redirect from="*" to="/404" />
+            </Switch>
+          </SizeProvider>
+        </TypeProvider>
+      </AppLoader>
       <ToastContainer />
     </div>
   )

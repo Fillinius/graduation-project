@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
 import NavProfile from './navProfile';
+import { useSelector } from 'react-redux';
+import { getCurrentUserData } from '../../store/users';
 
 const Navbar = () => {
-  const { currentUser } = useAuth()
+  const currentUser = useSelector(getCurrentUserData())
   return (
     <nav className='navbar' >
       <div className="container-fluid">

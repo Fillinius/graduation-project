@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
-// import { useParams } from 'react-router-dom';
-import { useAuth } from './useAuth';
 import { nanoid } from 'nanoid';
 import commentService from '../services/commentsService';
-import localStorageService from '../services/localstorage.service';
+// import localStorageService from '../services/localstorage.service';
+import { useSelector } from 'react-redux';
+import { getCurrentUserId } from '../store/users';
 
 const CommentsContext = React.createContext();
 
@@ -14,25 +14,24 @@ export const useComments = () => {
 };
 
 export const CommentsProvider = ({ children }) => {
-  // const { userId } = useParams();
-  const { currentUser } = useAuth();
+  const currentUserId = useSelector(getCurrentUserId())
   const [isLoading, setLoading] = useState(true);
   const [comments, setComments] = useState([]);
   const [error, setError] = useState(null);
   // вариация получения userId
-  const userId = localStorageService.getUserId()
+  const furnitursId = useParam()
   //
   useEffect(() => {
     getComments();
-  }, [userId]);
+  }, [furnitursId]);
 
   async function createComment(data) {
     const comment = {
       ...data,
       _id: nanoid(),
-      pageId: userId,
+      pageId: furnitursId,
       created_at: Date.now(),
-      userId: currentUser._id
+      furnitursId: currentUserId
     };
     try {
       const content = await commentService.createComment(comment);
@@ -43,7 +42,7 @@ export const CommentsProvider = ({ children }) => {
   }
   async function getComments() {
     try {
-      const content = await commentService.getComments(userId);
+      const content = await commentService.getComments(furnitursId);
       setComments(content);
     } catch (error) {
       errorCatcher(error);

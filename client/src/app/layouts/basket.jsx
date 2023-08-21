@@ -2,12 +2,13 @@ import React from 'react';
 import Counter from '../components/common/counter';
 import StatusBuyItems from '../components/common/statusBuyItems';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import { useFurniturs } from '../hooks/useFurniturs';
-import { useAuth } from '../hooks/useAuth';
+import { useSelector } from 'react-redux';
+import { getFurniturs } from '../store/furniturs';
+import { getCurrentUserData } from '../store/users';
 
 const Basket = () => {
-  const { furniturs } = useFurniturs()
-  const { currentUser } = useAuth()
+  const furniturs = useSelector(getFurniturs())
+  const currentUser = useSelector(getCurrentUserData())
   const totalPrice = furniturs.reduce((acc, item) => {
     return acc + item.price
   }, 0)

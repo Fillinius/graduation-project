@@ -3,16 +3,18 @@ import TextField from '../common/form/textField';
 import { validator } from '../../utils/validator';
 import CheckBoxField from '../common/form/checkBoxField';
 import { useHistory } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
+import { useDispatch } from 'react-redux'
+import { singUp } from '../../store/users';
 
 const RegisterForm = () => {
+  const dispatch = useDispatch()
   const [data, setData] = useState({
     name: '',
     email: '',
     password: '',
     licence: false
   })
-  const { singUp } = useAuth()
+
   const [errors, setErrors] = useState({})
   const history = useHistory()
   const handleChange = ({ target }) => {
@@ -71,17 +73,13 @@ const RegisterForm = () => {
     return Object.keys(errors).length === 0
   }
   const isValid = Object.keys(errors).length === 0
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     const isValid = validate()
     if (!isValid) return
     console.log(data)
-    try {
-      await singUp(data)
-      history.push('furniturs/')
-    } catch (error) {
-      setErrors(error)
-    }
+    dispatch(singUp(data))
+    history.push('furniturs/')
   }
 
   return (

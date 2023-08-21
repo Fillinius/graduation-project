@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import formatTime from '../../../utils/formatTime';
-import { useAuth } from '../../../hooks/useAuth';
 import { useSelector } from 'react-redux'
-import { getUsersById } from '../../../store/users';
+import { getCurrentUserId, getUsersById } from '../../../store/users';
 const Comment = ({
   content,
   created_at: created,
@@ -11,7 +10,7 @@ const Comment = ({
   userId,
   onRemove
 }) => {
-  const { currentUser } = useAuth()
+  const currentUserId = useSelector(getCurrentUserId())
   const user = useSelector(getUsersById(userId));
   return (
     <div className=" card-body  mb-3">
@@ -34,7 +33,7 @@ const Comment = ({
                       - {formatTime(created)}
                     </span>
                   </p>
-                  {currentUser._id === userId && (
+                  {currentUserId === userId && (
                     <button
                       className="btn btn-sm btn-danger d-flex align-items-center"
                       onClick={() => onRemove(id)}

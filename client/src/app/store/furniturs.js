@@ -7,6 +7,7 @@ const furnitursSlice = createSlice({
     entities: null,
     isLoading: true,
     error: null,
+    dataLoaded: false,
   },
   reducers: {
     furnitursRequested: (state) => {
@@ -14,6 +15,7 @@ const furnitursSlice = createSlice({
     },
     furnitursRecived: (state, action) => {
       state.entities = action.payload
+      state.dataLoaded = true
       state.isLoading = false
     },
     furnitursRequestFiled: (state, action) => {
@@ -43,5 +45,7 @@ export const getFurnitursById = (furnitureId) => (state) => {
     return state.furniturs.entities.find((f) => f._id === furnitureId)
   }
 }
+
+export const getDataStatusFurnitur = () => (state) => state.furniturs.dataLoaded
 
 export default furnitursReducer

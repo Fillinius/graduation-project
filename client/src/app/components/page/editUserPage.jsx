@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
 import { validator } from '../../utils/validator';
 import TextField from '../common/form/textField';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCurrentUserData, getUpdateUserData } from '../../store/users';
 
 const EditUserPage = () => {
-  const { currentUser, updateUserData } = useAuth()
+  const dispatch = useDispatch()
+  const currentUser = useSelector(getCurrentUserData())
   const [isLoading, setIsLoading] = useState(true)
   const [errors, setErrors] = useState(null)
   const [data, setData] = useState()
-  const history = useHistory()
 
   useEffect(() => {
     setData(currentUser)
@@ -29,14 +29,11 @@ const EditUserPage = () => {
     }))
   }
   // блок отправки данных
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const isValid = validate();
     if (!isValid) return
-    console.log(data, 'data hand');
-    console.log(updateUserData());
-    await updateUserData(data)
-    history.push(history.location.pathname)
+    dispatch(getUpdateUserData(data))
   }
   // блок валидации по полю
   useEffect(() => {

@@ -4,7 +4,6 @@ import FurnitureCard from '../ui/furnitureCard';
 import QualityCard from '../ui/qualityCard';
 import SizeCard from '../ui/sizeCard';
 import Comments from '../common/comments/comments';
-import { CommentsProvider } from '../../hooks/useComments';
 
 const FurniturePage = ({ furniture }) => {
   return (
@@ -13,9 +12,7 @@ const FurniturePage = ({ furniture }) => {
       <QualityCard furniture={furniture} />
       <SizeCard furniture={furniture} />
       <div>
-        <CommentsProvider>
-          <Comments />
-        </CommentsProvider>
+        <Comments />
       </div>
     </div>
   );

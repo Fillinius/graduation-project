@@ -11,11 +11,11 @@ import { useSize } from '../../hooks/useSize';
 import { useSelector } from 'react-redux';
 import { getFurniturs } from '../../store/furniturs';
 import FurnitursListPage from './furnitursListPage';
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { useParams } from 'react-router-dom';
 
 const FurnitursList = () => {
   const furniturs = useSelector(getFurniturs())
-  const furnitursId = useParams()
+  const { furnitursId } = useParams()
   const { types, isLoading: isLoadingType } = useType()
   const { sizes, isLoading: isLoadingSizes } = useSize()
   const [search, setSearch] = useState('')

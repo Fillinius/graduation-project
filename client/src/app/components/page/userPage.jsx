@@ -1,14 +1,14 @@
 import React from 'react';
-import { useAuth } from '../../hooks/useAuth';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import localStorageService from '../../services/localstorage.service';
 import { useSelector } from 'react-redux';
-import { getUsersById } from '../../store/users';
+import { getCurrentUserId, getUsersById } from '../../store/users';
 
 const UserPage = () => {
   const history = useHistory()
-  const { currentUser } = useAuth()
+  const currentUserId = useSelector(getCurrentUserId())
   const userId = localStorageService.getUserId()
+
   const user = useSelector(getUsersById(userId))
   const handleClick = () => {
     history.push(`${userId}/edit`)
@@ -16,7 +16,7 @@ const UserPage = () => {
   return (
     <div className="card mb-3">
       <div className="card-body">
-        {currentUser._id === user._id && <button
+        {currentUserId === user._id && <button
           className="position-absolute top-0 end-0 btn btn-danger btn-sm"
           onClick={handleClick}>
           Change
@@ -34,7 +34,7 @@ const UserPage = () => {
           <div className="mt-3">
             <h4>{user.name}</h4>
             <p className="text-secondary mb-1">{user.email}</p>
-
+            <p>Id пользователя: <strong>{user._id}</strong></p>
           </div>
         </div>
       </div>
