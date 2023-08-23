@@ -1,24 +1,28 @@
 function formatTime(data) {
-  const date = new Date(parseInt(data))
+  const date = new Date(data)
   const dateNow = new Date()
   const yearDif = dateNow.getFullYear() - date.getFullYear()
-  const dayDif = dateNow.getDay() - date.getDay()
-  const hoursDif = dateNow.getHours() - date.getHours()
-  const minDif = dateNow.getMinutes() - date.getMinutes()
-
   if (yearDif === 0) {
+    const dayDif = dateNow.getDay() - date.getDay()
     if (dayDif === 0) {
-      if (hoursDif === 0) {
-        if (minDif >= 0 && minDif < 5) return '1 минуту назад'
-        if (minDif >= 5 && minDif < 10) return '5 минут назад'
-        if (minDif > 10 && minDif < 30) return '10 минут назад'
+      const hourDif = dateNow.getHours() - date.getHours()
+      if (hourDif === 0) {
+        const minutesDif = dateNow.getMinutes() - date.getMinutes()
 
-        return '30'
+        if (minutesDif >= 0 && minutesDif < 5) return '1 минуту назад'
+        if (minutesDif >= 5 && minutesDif < 10) return '5 минут назад'
+        if (minutesDif >= 10 && minutesDif < 30) {
+          return '10 минут назад'
+        }
+        return '30 минут назад'
       }
       return `${date.getHours()}:${date.getMinutes()}`
     }
-    return `${date.getMonth() + 1} ${date.getFullYear()}`
+
+    return `${date.getDay()} ${date.toLocaleString('default', {
+      month: 'long',
+    })}`
   }
-  return `${date.getDay()} ${date.getMonth() + 1} ${date.getFullYear()}`
+  return date.getFullYear() + '.' + (date.getMonth() + 1) + '_' + date.getDate()
 }
 export default formatTime

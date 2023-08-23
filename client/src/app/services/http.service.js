@@ -37,14 +37,14 @@ http.interceptors.request.use(
     } else {
       if (isExpired) {
         const data = await authService.refresh()
-        console.log(data, 'data http')
+        // console.log(data, 'data http')
         localStorageService.setTokens(data)
       }
 
       const accessToken = localStorageService.getAccessToken()
       if (accessToken) {
-        config.params = {
-          ...config.params,
+        config.headers = {
+          ...config.headers,
           Authorization: `Bearer ${accessToken}`,
         }
       }

@@ -7,6 +7,7 @@ import { getQualities, getQualitiesLoading } from '../../../store/qualities';
 const QualitiesList = ({ qualities }) => {
   const quality = useSelector(getQualities())
   const isLoading = useSelector(getQualitiesLoading())
+  if (isLoading) return 'Loading quality...'
   // блок получения качества по ID
   const getQualityById = (element) => {
     const qualityArraw = []

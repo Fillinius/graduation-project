@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TypesList from '../ui/types copy/typesList';
+import TypesList from '../ui/types/typesList';
 import SizesList from '../ui/sizes/sizesList';
 
 const GroupList = ({ types, sizes }) => {
-  console.log(sizes);
   const handleList = () => {
     console.log('click');
   }

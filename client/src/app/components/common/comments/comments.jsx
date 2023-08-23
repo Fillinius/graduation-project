@@ -2,11 +2,9 @@ import { orderBy } from 'lodash';
 import React, { useEffect } from 'react';
 import AddCommentForm from './addCommentForm';
 import CommentsList from './commentsList';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUserData } from '../../../store/users';
 import { createComment, getComments, getCommentsLoading, loadcommentsList, removeComment } from '../../../store/comments';
-// import localStorageService from '../../../services/localstorage.service';
 import { useParams } from 'react-router-dom';
 
 const Comments = () => {

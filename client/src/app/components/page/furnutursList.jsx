@@ -44,26 +44,36 @@ const FurnitursList = () => {
   return (
     <>
       <div className='d-flex'>
-        {!isLoadingType && !isLoadingSizes && (<GroupList types={types} sizes={sizes} />)}
-        <Search
-          type="text"
-          value={search}
-          onChange={handleChangeSearch}
-        />
-        {furniturs.length > 0
-          ? (<div className='d-flex'>
-            <FurnitursListPage furnitustList={search === '' ? userCrop : filterSearchText} onChange={handleBuy} />
-          </div>)
-          : <Loader />
-        }
-        < div className='justify-content-center' >
-          <Pagination
-            itemsCount={search === '' ? count : filterSearchText}
-            size={pageSize}
-            currentPage={currentPage}
-            onPageChange={handleChangePage} />
-        </div >
+
+        {!isLoadingType && !isLoadingSizes && (
+          <div className="d-flex flex-column flex-shrink-0 p-3">
+            <GroupList types={types} sizes={sizes} />
+          </div>)}
+        <div className="d-flex flex-column ">
+          <Search
+            type="text"
+            value={search}
+            onChange={handleChangeSearch}
+          />
+          {furniturs.length > 0
+            ? <>
+              <div className="d-flex col">
+                <FurnitursListPage furnitustList={search === '' ? userCrop : filterSearchText} onChange={handleBuy} />
+              </div>
+              <div className="d-flex justify-content-center">
+                <Pagination
+                  itemsCount={search === '' ? count : filterSearchText}
+                  size={pageSize}
+                  currentPage={currentPage}
+                  onPageChange={handleChangePage} />
+              </div>
+            </>
+            : <Loader />
+          }
+        </div>
+
       </div >
+
     </>
 
   );
